@@ -40,6 +40,10 @@ app.post("/send-email", (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("Hey welcome to your backend server of quiz");
+});
+
 // Start the server
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
