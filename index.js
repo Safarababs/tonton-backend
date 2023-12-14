@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   secure: false,
   auth: {
     user: "masoomasafar_2010@hotmail.com", // Your email
-    pass: "sn5125a1", // Your password or app-specific password
+    pass: "vciwegcmbdhmdenl", // Your password or app-specific password
   },
   tls: {
     ciphers: 'SSLv3',
@@ -33,13 +33,14 @@ app.post("/send-email", (req, res) => {
   
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
+      console.error("Error sending email:", error);
       res.status(500).send("Error sending email");
     } else {
       console.log("Email sent: " + info.response);
       res.status(200).send("Email sent successfully");
     }
   });
+  
 });
 
 app.get("/", (req, res) => {
