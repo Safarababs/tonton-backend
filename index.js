@@ -8,23 +8,22 @@ app.use(express.json());
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  service: "hotmail", // Use your email service (e.g., 'hotmail' or 'outlook')
+  host: 'smtp.office365.com',
+  port: 587,
+  secure: false,
   auth: {
     user: "masoomasafar_2010@hotmail.com", // Your email
-    pass: "sn5125a1", // Your password
-  }, // Add this line for secure connection (if required)
+    pass: "sn5125a1", // Your password or app-specific password
+  },
   tls: {
     ciphers: 'SSLv3',
     rejectUnauthorized: false,
   },
 });
 
- // Parse JSON bodies
-
 app.post("/send-email", (req, res) => {
   const { name, email, number, message } = req.body;
 
-  // Email data
   const mailOptions = {
     from: "masoomasafar_2010@hotmail.com",
     to: "safarabbas_2010@hotmail.com",
@@ -32,8 +31,6 @@ app.post("/send-email", (req, res) => {
     html: `<p><strong>Hi my name is ${name}</strong></p><p><strong>${message}</strong></p><p><strong>My number is ${number}</strong></p><p><strong>My email: ${email}</strong></p>`,
   };
   
-
-  // Send email
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);
@@ -49,7 +46,6 @@ app.get("/", (req, res) => {
   res.send("Hey welcome to your backend server of quiz");
 });
 
-// Start the server
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
