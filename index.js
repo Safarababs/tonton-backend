@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
+require('dotenv').config()
+
 const nodemailer = require("nodemailer");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Removed the hardcoded password here for security reasons
-const AppPassword = "cuxw kwhu tbpt fbza"; // Use environment variables
+const appPassword = process.env.APP_PASSWORD;
+
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -16,7 +18,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: "safarabbas73.sa@gmail.com",
-    pass: AppPassword,
+    pass: appPassword,
   },
   authMethod: 'PLAIN', // Specify the authentication method as PLAIN
 });
