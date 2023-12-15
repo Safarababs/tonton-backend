@@ -33,12 +33,12 @@ app.post("/email", (req, res) => {
   const htmlContent = `
   <p>Hello E. T. Enterprise,</p>
   <h1>Business Email</h1>
-  <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">My name is ${name} <br><br>${message}</p>
+  <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">My name is <a href="mailto:${email}">${name}</a> <br><br>${message}</p>
   <p>Customer Contact Details</p>
-  <p><strong>Customer Name:</strong> ${name}</p>
-  <p><strong>Customer Contact:</strong> ${number}</p>
-  <p><strong>Customer Email:</strong> ${email}:</p>
-  `;
+  <p><strong>Customer Name:</strong> <a href="mailto:${email}">${name}</a></p>
+  <p><strong>Customer Contact:</strong> <a href="tel:${number}">${number}</a></p>
+  <p><strong>Customer Email:</strong> <a href="mailto:${email}">${email}</a></p>
+`;
 
   const mailOptions = {
     from: appUser,
