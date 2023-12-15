@@ -28,13 +28,23 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/email", (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, number, message } = req.body;
+
+  const htmlContent = `
+  <p>Hello E. T. Enterprise,</p>
+  <h1>Business Email</h1>
+  <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">My name is ${name} <br><br>${message}</p>
+  <p>Customer Contact Details</p>
+  <p>Customer Name: ${name}</p>
+  <p>Customer Contact: ${number}</p>
+  <p>Customer Email: ${email}:</p>
+  `;
 
   const mailOptions = {
     from: appUser,
     to: appReciever,
     subject: "Business Email!",
-    html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
+    html: htmlContent,
   };
   
   transporter.sendMail(mailOptions, (error, info) => {
