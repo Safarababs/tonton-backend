@@ -9,15 +9,19 @@ app.use(cors());
 app.use(express.json());
 
 const appPassword = process.env.APP_PASSWORD;
+const appHost = process.env.APP_HOST;
+const appUser = process.env.APP_USER;
+const appReciever = process.env.APP_RECIEVER;
+const appPort = process.env.APP_PORT;
 
 
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
+  host: appHost,
+  port: appPort,
   secure: true,
   auth: {
-    user: "safarabbas73.sa@gmail.com",
+    user: appUser,
     pass: appPassword,
   },
   authMethod: 'PLAIN', // Specify the authentication method as PLAIN
@@ -27,8 +31,8 @@ app.post("/email", (req, res) => {
   const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: "safarabbas73.sa@gmail.com",
-    to: "safarabbas_2010@hotmail.com",
+    from: appUser,
+    to: appReciever,
     subject: "Business Email!",
     html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
   };
