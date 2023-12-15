@@ -6,29 +6,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Removed the hardcoded password here for security reasons
+const AppPassword = "cuxw kwhu tbpt fbza"; // Use environment variables
+
 // Create a Nodemailer transporter
 const transporter = nodemailer.createTransport({
-  host: 'smtp.office365.com',
-  port: 587,
-  secure: false,
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
-    user: "masoomasafar_2010@hotmail.com", // Your email
-    pass: "vciwegcmbdhmdenl", // Your password or app-specific password
+    user: "safarabbas73.sa@gmail.com",
+    pass: AppPassword,
   },
-  tls: {
-    ciphers: 'SSLv3',
-    rejectUnauthorized: false,
-  },
+  authMethod: 'PLAIN', // Specify the authentication method as PLAIN
 });
 
-app.post("/send-email", (req, res) => {
-  const { name, email, number, message } = req.body;
+app.post("/email", (req, res) => {
+  const { name, email, message } = req.body;
 
   const mailOptions = {
-    from: "masoomasafar_2010@hotmail.com",
+    from: "safarabbas73.sa@gmail.com",
     to: "safarabbas_2010@hotmail.com",
     subject: "Business Email!",
-    html: `<p><strong>Hi my name is ${name}</strong></p><p><strong>${message}</strong></p><p><strong>My number is ${number}</strong></p><p><strong>My email: ${email}</strong></p>`,
+    html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
   };
   
   transporter.sendMail(mailOptions, (error, info) => {
@@ -40,7 +40,6 @@ app.post("/send-email", (req, res) => {
       res.status(200).send("Email sent successfully");
     }
   });
-  
 });
 
 app.get("/", (req, res) => {
