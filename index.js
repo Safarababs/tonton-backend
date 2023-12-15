@@ -35,9 +35,9 @@ app.post("/email", (req, res) => {
   <h1>Business Email</h1>
   <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">My name is ${name} <br><br>${message}</p>
   <p>Customer Contact Details</p>
-  <p>Customer Name: ${name}</p>
-  <p>Customer Contact: ${number}</p>
-  <p>Customer Email: ${email}:</p>
+  <p><strong>Customer Name:</strong> ${name}</p>
+  <p><strong>Customer Contact:</strong> ${number}</p>
+  <p><strong>Customer Email:</strong> ${email}:</p>
   `;
 
   const mailOptions = {
