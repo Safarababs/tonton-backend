@@ -28,7 +28,10 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/email", (req, res) => {
-  const { name, email, number, message } = req.body;
+  const { name, email, number,company, message } = req.body;
+
+  const defaultCompany = "Company Name not provided";
+  const companyName = company || defaultCompany;
 
   const htmlContent = `
   <p>Hello E. T. Enterprise,</p>
@@ -36,23 +39,24 @@ app.post("/email", (req, res) => {
   <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">My name is ${name} <br><br>${message}</p>
   <p>Customer Contact Details</p>
   <p><strong>Customer Name:</strong> ${name}</p>
+  <p><strong>Customer Company Name:</strong> ${company}</p>
   <p><strong>Customer Contact:</strong> <a href="tel:${number}">${number}</a></p>
   <p><strong>Customer Email:</strong> <a href="mailto:${email}">${email}</a></p>
 `;
 
   const mailOptions = {
     from: appUser,
-    to: appReciever,
+    // to: appReciever,
+    to:"safarabbas_2010@hotmail.com",
     subject: "Business Email!",
     html: htmlContent,
   };
   
-  transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error) => {
     if (error) {
       console.error("Error sending email:", error);
       res.status(500).send("Error sending email");
     } else {
-      console.log("Email sent: " + info.response);
       res.status(200).send("Email sent successfully");
     }
   });
