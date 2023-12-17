@@ -46,8 +46,7 @@ app.post("/email", (req, res) => {
 
   const mailOptions = {
     from: appUser,
-    // to: appReciever,
-    to:"safarabbas_2010@hotmail.com",
+    to: appReciever,
     subject: "Business Email!",
     html: htmlContent,
   };
